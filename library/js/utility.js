@@ -161,3 +161,77 @@ function initInteractors(interactors = '.drag-resize', context = document) {
         target.setAttribute('data-y', y);
     }
 }
+
+/*
+* Universal async BS alert message with promise
+* Note the use of new javaScript translate function xl().
+*
+*/
+if (typeof asyncAlertMsg !== "function") {
+    function asyncAlertMsg(message, timer = 5000, type = 'danger', size = '') {
+        let alertMsg = xl("Alert Notice");
+        $('#alert_box').remove();
+        size = (size == 'lg') ? 'left:25%;width:50%;' : 'left:35%;width:30%;';
+        let style = "position:fixed;top:25%;" + size + " bottom:0;z-index:9999;";
+        $("body").prepend("<div class='container text-center' id='alert_box' style='" + style + "'></div>");
+        let mHtml = '<div id="alertmsg" class="alert alert-' + type + ' alert-dismissable">' +
+            '<button type="button" class="close btn btn-link btn-cancel" data-dismiss="alert" aria-hidden="true"></button>' +
+            '<h5 class="alert-heading text-center">' + alertMsg + '</h5><hr>' +
+            '<p>' + message + '</p>' +
+            '</div>';
+        $('#alert_box').append(mHtml);
+        return new Promise(resolve => {
+            $('#alertmsg').on('closed.bs.alert', function () {
+                clearTimeout(AlertMsg);
+                $('#alert_box').remove();
+                resolve('closed');
+            });
+            let AlertMsg = setTimeout(function () {
+                $('#alertmsg').fadeOut(800, function () {
+                    $('#alert_box').remove();
+                    resolve('timedout');
+                });
+            }, timer);
+        })
+    }
+}
+
+/*
+* function syncAlertMsg(()
+*
+* Universal sync BS alert message returns promise after resolve.
+* Call below to return a promise after alert is resolved.
+* Example: syncAlertMsg('Hello, longtime, 'success', 'lg').then( asyncRtn => ( ... log something });
+*
+* Or use as IIFE to run inline.
+* Example:
+*   (async (time) => {
+*       await asyncAlertMsg('Waiting till x'ed out or timeout!', time); ...now go;
+*   })(3000).then(rtn => { ... but then could be more });
+*
+* */
+async function syncAlertMsg(message, timer = 5000, type = 'danger', size = '') {
+    return await asyncAlertMsg(message, timer, type, size);
+}
+
+/* Handy function to set values in globals user_settings table */
+if (typeof persistUserOption !== "function") {
+    const persistUserOption = function (option, value) {
+        return $.ajax({
+            url: top.webroot_url + "/library/ajax/user_settings.php",
+            type: 'post',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                csrf_token_form: top.csrf_token_js,
+                target: option,
+                setting: value
+            },
+            beforeSend: function () {
+                top.restoreSession();
+            },
+            error: function (jqxhr, status, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    };
+}

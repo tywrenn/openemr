@@ -164,7 +164,6 @@ function dialogID() {
 *
 * */
 function includeScript(url, async, type) {
-
     try {
         let rqit = new XMLHttpRequest();
         if (type === "link") {
@@ -248,18 +247,19 @@ if (typeof alertMsg !== "function") {
         // example of get php to js variables.
         let isPromise = top.jsFetchGlobals('alert');
         isPromise.then(xl => {
+            $('#alert_box').remove();
             let oHidden = '';
             oHidden = !persist ? "hidden" : '';
-            let oSize = (size === 'lg') ? 'left:10%;width:80%;' : 'left:25%;width:50%;';
+            let oSize = (size == 'lg') ? 'left:10%;width:80%;' : 'left:25%;width:50%;';
             let style = "position:fixed;top:25%;" + oSize + " bottom:0;z-index:9999;";
             $("body").prepend("<div class='container text-center' id='alert_box' style='" + style + "'></div>");
-            let mHtml = '<div id="alertmsg" hidden class="alert alert-' + type + ' alert-dismissable">' +
+            let mHtml = '<div id="alertmsg" class="alert alert-' + type + ' alert-dismissable">' +
                 '<button type="button" class="btn btn-link ' + oHidden + '" id="dontShowAgain" data-dismiss="alert">' +
                 xl.alert.gotIt + '&nbsp;<i class="fa fa-thumbs-up"></i></button>' +
                 '<h4 class="alert-heading text-center">' + xl.alert.title + '!</h4><hr>' + '<p style="color:#000;">' + message + '</p>' +
                 '<button type="button" class="pull-right btn btn-link" data-dismiss="alert">' + xl.alert.dismiss + '</button></br></div>';
-            $('#alert_box').remove().append(mHtml);
-            $('#alertmsg').fadeIn(800).on('closed.bs.alert', function () {
+            $('#alert_box').append(mHtml);
+            $('#alertmsg').on('closed.bs.alert', function () {
                 clearTimeout(AlertMsg);
                 $('#alert_box').remove();
                 return false;

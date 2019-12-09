@@ -72,14 +72,15 @@ function includeDependency(url, async, type) {
 */
 document.addEventListener('DOMContentLoaded', function () {
     let isNeeded = document.querySelectorAll('.drag-action').length;
-    if (isNeeded) {
+    let isNeededResize = document.querySelectorAll('.resize-action').length;
+    if (isNeeded || isNeededResize) {
         initDragResize();
     }
 
 }, false);
 
 /*
-* function initDragResize(interactors = '.drag-resize', context = document)
+* @function initDragResize(dragContext, resizeContext)
 * @summary call this function from scripts you may want to provide a different
 *  context other than the page context of this utility
 *
@@ -100,10 +101,10 @@ function initDragResize(dragContext, resizeContext = document) {
 }
 
 /* function to init all page drag/resize elements.*/
-function initInteractors(resizeContext, defaultContext = document) {
-    let context = defaultContext;
+function initInteractors(dragContext = document, resizeContext = '') {
+    resizeContext = resizeContext ? resizeContext : dragContext;
     /* Draggable */
-    interact(".drag-action", {context: context}).draggable({
+    interact(".drag-action", {context: dragContext}).draggable({
         enabled: true,
         inertia: true,
         restrict: {
@@ -112,7 +113,7 @@ function initInteractors(resizeContext, defaultContext = document) {
             elementRect: {top: 0, left: 0, bottom: 1, right: 1}
         },
         snap: {
-            targets: [interact.createSnapGrid({x: .5, y: .5})],
+            targets: [interact.createSnapGrid({x: 1, y: 1})],
             range: Infinity,
             relativePoints: [{x: 0, y: 0}]
         },
@@ -123,7 +124,7 @@ function initInteractors(resizeContext, defaultContext = document) {
     }).on('dragmove', dragMoveListener);
 
     /* Resizable */
-    interact(".resize-action", {context: context}).resizable({
+    interact(".resize-action", {context: resizeContext}).resizable({
         enabled: true,
         preserveAspectRatio: false,
         edges: {

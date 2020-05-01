@@ -13,10 +13,9 @@
   top: 0;
   width: 100%;
   z-index: 100;
-}
-
-.menuBar ~ .container {
-  margin-top: 95px;
+  ~ .container {
+    margin-top: 95px;
+  }
 }
 
 .logout {
@@ -93,11 +92,9 @@ span.bold {
   height: 95%;
   overflow: auto;
   width: 100%;
-}
-
-#documents_list td,
-#documents_list a {
-  @include font-size("0.8rem !important");
+  td, a {
+    @include font-size("0.8rem !important");
+  }
 }
 
 .body_title table tr td {
@@ -123,12 +120,13 @@ span.bold {
  * Report - Custom
  * seen as the patient report (custom_report.php)
  *============================================================*/
-#report_custom h1 {
-  @include font-size("1.2rem !important");
-}
-
-#report_custom .encounter h1 {
-  @include font-size("1.4rem !important");
+#report_custom {
+	h1 {
+	  @include font-size("1.2rem !important");
+	}
+	.encounter h1 {
+	  @include font-size("1.4rem !important");
+	}
 }
 
 #addressbook_list tr.evenrow {
@@ -156,24 +154,20 @@ ul.tabNav {
   margin: 0;
   padding: 0;
   padding-top: 4px;
-}
-
-ul.tabNav li {
-  padding: 0 4px;
-}
-
-ul.tabNav li.current a {
-  background: $white;
-  color: $primary;
-}
-
-ul.tabNav a {
-  color: $white;
-  padding: 8px 17px;
-}
-
-ul.tabNav a:focus {
-  outline: none;
+  li {
+    padding: 0 4px;
+  }
+  li.current a {
+    background: $white;
+    color: $primary;
+  }
+  a {
+    color: $white;
+    padding: 8px 17px;
+  }
+  a:focus {
+    outline: 0;
+  }
 }
 
 /* Override BS4 dropdown toggle */
@@ -199,37 +193,33 @@ ul.tabNav a:focus {
   @include font-size("0.8rem !important");
 }
 
-#sddm li {
-  background: $light;
-}
-
-#sddm li a {
-  color: $primary;
-  padding: 12px;
-}
-
-#sddm li a:hover {
-  background: darken($light, 15%);
-}
-
-#sddm div {
-  background: $light;
-  display: none;
-  margin: 0;
-  padding: 0;
-}
-
-#sddm div a {
-  color: darken($primary, 15%);
-}
-
-#sddm div a:hover {
-  background: $primary;
-}
-
-#sddm li.encounter-form-category-li {
-  position: relative;
-  z-index: 1;
+#sddm {
+	li {
+	  background: $light;
+	}
+	li a {
+	  color: $primary;
+	  padding: 12px;
+	}
+	li a:hover {
+	  background: darken($light, 15%);
+	}
+	div {
+	  background: $light;
+	  display: none;
+	  margin: 0;
+	  padding: 0;
+	}
+	div a {
+	  color: darken($primary, 15%);
+	}
+	div a:hover {
+	  background: $primary;
+	}
+	li.encounter-form-category-li {
+	  position: relative;
+	  z-index: 1;
+	}
 }
 
 .text-area {
@@ -243,17 +233,15 @@ ul.tabNav a:focus {
 
 .example_menu {
   @include font-size("0.7rem !important");
-}
-
-.example_menu ul a:hover {
-  background: darken($light, 15%);
-  text-decoration: underline;
+  ul a:hover {
+    background: darken($light, 15%);
+    text-decoration: underline;
+  }
 }
 
 .error-message {
   @include font-size("0.8rem !important");
 }
-
 
 .attach-input {
   text-align: right;
@@ -270,10 +258,9 @@ ul.tabNav a:focus {
 .sidebar {
   @include font-size("0.95rem !important");
   background-color: lighten($light, 10%);
-}
-
-.sidebar .submenu {
-  @include font-size("0.9rem !important");
+  .submenu {
+    @include font-size("0.9rem !important");
+  }
 }
 
 .alert-danger-custom {
@@ -309,29 +296,26 @@ div.category-display {
   margin: 0;
 }
 
-#oe-nav-ul.tabNav li.current {
-  color: $primary;
-}
-
-#oe-nav-ul.tabNav a {
-  background: $light;
-  border-bottom: 1px solid $gray-400;
-  border-left: 2px solid $primary;
-}
-
-#oe-nav-ul.tabNav a:hover {
-  background-color: $white !important;
-  color: $primary;
-}
 
 #oe-nav-ul.tabNav {
   background: rgba($black, 0.05) !important;
-}
-
-#oe-nav-ul.tabNav .current a {
-  background: $white;
-  border-color: $primary;
-  color: $primary;
+  a {
+    background: $light;
+    border-bottom: 1px solid $gray-400;
+    border-left: 2px solid $primary;
+  }
+  a:hover {
+    background-color: $white !important;
+    color: $primary;
+  }
+  li.current {
+    color: $primary;
+  }
+  .current a {
+    background: $white;
+    border-color: $primary;
+    color: $primary;
+  }
 }
 
 #globals-div .tabContainer {
@@ -411,16 +395,16 @@ fieldset {
   background-color: $white !important;
 }
 
-.login-emr-logo > #red-color {
-  fill: #a40c04;
-}
-
-.login-emr-logo > #blue-color {
-  fill: #2c9cd4;
-}
-
-.login-emr-logo > #gray-color {
-  fill: #5c5c5c;
+.login-emr-logo {
+	> #red-color {
+	  fill: #a40c04;
+	}
+	> #blue-color {
+	  fill: #2c9cd4;
+	}
+	> #gray-color {
+	  fill: #5c5c5c;
+	}
 }
 
 #mainBox .logo .emr-menu-logo > #blue-color,
@@ -430,4 +414,8 @@ fieldset {
 
 .about-review-image > #color {
   fill: #083c5d;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block !important;
 }

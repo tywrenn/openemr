@@ -46,7 +46,7 @@ switch ($search_any_type) {
 
 ?>
 <script type="text/html" id="patient-data-template">
-    <div class="d-lg-inline-flex w-100">
+    <div class="d-lg-flex flex-row w-100">
         <div class="flex-fill">
             <div class="float-left mx-2">
                 <!-- ko if: patient -->

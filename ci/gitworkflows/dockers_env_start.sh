@@ -1,5 +1,4 @@
 failTest=false
-jobTests=""
 echo "---------------------------------------------------------------------"
 echo "Start up the appropriate testing docker system to allow testing below"
 echo "---------------------------------------------------------------------"

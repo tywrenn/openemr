@@ -2,7 +2,7 @@ failTest=false
 echo "------------------"
 echo "CCDA OpenEMR Build"
 echo "------------------"
-cd ccdaservice || failTest=true
+cd $GITHUB_WORKSPACE/ccdaservice || failTest=true
 npm install || failTest=true
 cd ../ || failTest=true
 if $failTest; then

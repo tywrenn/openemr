@@ -17,8 +17,12 @@ jobs:
           uses:                  shivammathur/setup-php@v2
           with:
               php-version:       '7.4'
+        - name:                  Start Job
+          run:                   failJob=false && jobTests=""
         - name:                  lint_style
-          run:                   composer global require "squizlabs/php_codesniffer=3.*" && /home/runner/.composer/vendor/bin/phpcs -p -n --extensions=php,inc --report-width=120 --standard=$GITHUB_WORKSPACE/ci/phpcs.xml --report=full $GITHUB_WORKSPACE
+          run:                   ./ci/gitworkflows/lint_style.sh
+        - name:                  job_summary_prep
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   themestyle:
     name:                        Theme Style
     runs-on:                     ubuntu-latest
@@ -30,9 +34,11 @@ jobs:
           with:
               php-version:       '7.4'
         - name:                  Start Job
-          run:                   failJob=false
+          run:                   failJob=false && jobTests=""
         - name:                  lint_theme_style
-          run:                   npm install && npx stylelint "$GITHUB_WORKSPACE/**/*.css" && npx stylelint "$GITHUB_WORKSPACE/**/*.scss"
+          run:                   ./ci/gitworkflows/lint_theme_style.sh
+        - name:                  job_summary_prep
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   syntax:
     name:                        Syntax - PHP Multiversion
     runs-on:                     ubuntu-latest
@@ -63,6 +69,8 @@ jobs:
           uses:                  shivammathur/setup-php@v2
           with:
               php-version:       '8.0'
+        - name:                  Start Job
+          run:                   failJob=false && jobTests=""
         - name:                  lint_syntax
           run:                   ./ci/gitworkflows/lint_syntax.sh
         - name:                  job_summary_prep

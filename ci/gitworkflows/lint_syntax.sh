@@ -1,5 +1,4 @@
 failTest=false
-jobTests=""
 echo "------------------------------"
 echo "Checking for PHP syntax errors"
 echo "------------------------------"

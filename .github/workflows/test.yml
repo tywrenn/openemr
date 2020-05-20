@@ -14,7 +14,7 @@ jobs:
           with:
               php-version:          '7.4'
               extensions:           ldap
-              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
+              ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_style
@@ -32,7 +32,7 @@ jobs:
           with:
               php-version:          '7.4'
               extensions:           ldap
-              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
+              ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -57,7 +57,7 @@ jobs:
           with:
               php-version:          ${{ matrix.php-versions }}
               extensions:           ldap
-              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
+              ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -80,7 +80,7 @@ jobs:
           with:
               php-version:          '8.0'
               extensions:           ldap
-              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
+              ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -102,9 +102,10 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '7.3'
-              repo-token:           ${{ secrets.GITHUB_TOKEN }}
               extensions:           ldap
-              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
+              ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
+          env:
+              COMPOSER_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -152,9 +153,10 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '7.3'
-              repo-token:           ${{ secrets.GITHUB_TOKEN }}
               extensions:           ldap
-              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
+              ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
+          env:
+              COMPOSER_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:

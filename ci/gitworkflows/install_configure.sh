@@ -13,13 +13,20 @@ docker exec -i $(docker ps | grep _openemr | cut -f 1 -d " ") sh -c 'mysql -u op
 docker exec -i $(docker ps | grep _openemr | cut -f 1 -d " ") sh -c 'mysql -u openemr --password="openemr" -h mysql -e "UPDATE globals SET gl_value = 1 WHERE gl_name = \"rest_portal_api\"" openemr' || failTest=true
 docker exec -i $(docker ps | grep _openemr | cut -f 1 -d " ") sh -c 'mysql -u openemr --password="openemr" -h mysql -e "UPDATE globals SET gl_value = 1 WHERE gl_name = \"rest_portal_fhir_api\"" openemr' || failTest=true
 if $failTest; then
-failJob=true
+export failJob=true
 mes="FAILED"
-else
-mes="PASSED"
-fi
 echo "-------------------------------------------------------------------------------------------------------"
 jobTest="${mes} - Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
 jobTests+="${jobTest}\n"
 echo "${jobTest}"
 echo "-------------------------------------------------------------------------------------------------------"
+exit 2
+else
+mes="PASSED"
+echo "-------------------------------------------------------------------------------------------------------"
+jobTest="${mes} - Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
+jobTests+="${jobTest}\n"
+echo "${jobTest}"
+echo "-------------------------------------------------------------------------------------------------------"
+exit 0
+fi

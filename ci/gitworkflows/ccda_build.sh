@@ -2,17 +2,24 @@ failTest=false
 echo "------------------"
 echo "CCDA OpenEMR Build"
 echo "------------------"
-cd $GITHUB_WORKSPACE/ccdaservice || failTest=true
+cd ccdaservice || failTest=true
 npm install || failTest=true
 cd ../ || failTest=true
 if $failTest; then
-failJob=true
+export failJob=true
 mes="FAILED"
-else
-mes="PASSED"
-fi
 echo "---------------------------"
 jobTest="${mes} - CCDA OpenEMR Build"
 jobTests+="${jobTest}\n"
 echo "${jobTest}"
 echo "---------------------------"
+exit 2
+else
+mes="PASSED"
+echo "---------------------------"
+jobTest="${mes} - CCDA OpenEMR Build"
+jobTests+="${jobTest}\n"
+echo "${jobTest}"
+echo "---------------------------"
+exit 0
+fi

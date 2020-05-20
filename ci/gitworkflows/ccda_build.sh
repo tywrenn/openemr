@@ -3,9 +3,8 @@ echo "------------------"
 echo "CCDA OpenEMR Build"
 echo "------------------"
 cd ccdaservice || failTest=true
-sudo mkdir node_modules || failTest=true
-sudo chmod -R 777 . || failTest=true
-npm install || failTest=true
+echo "Running node in sudo -- This is normal for CI as it doesn't like directory perms too much here"
+sudo npm install || failTest=true
 cd ../ || failTest=true
 if $failTest; then
 export failJob=true

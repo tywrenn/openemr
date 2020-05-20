@@ -1,35 +1,35 @@
-name: OpenEMR Build
-on: [push, pull_request]
+name:                         OpenEMR Build
+on:                           [push, pull_request]
 env:
-  CI: true
+  CI:                         true
 #efore_install:
 #  - echo "extension=ldap.so" >>php --ini | grep "Loaded Configuration" | sed -e "s|.:\s||"``
 #before_script:
 #  - echo 'error_reporting = "E_ALL & ~E_NOTICE & ~E_STRICT"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 jobs:
   run:
-    name: Node ${{ matrix.node }}
-    runs-on: ubuntu-latest
+    name:                     Node ${{ matrix.node }}
+    runs-on:                  ubuntu-latest
 
     strategy:
-      fail-fast: false
+      fail-fast:              false
       matrix:
-        node: [10, 12]
+        node:                 [10, 12]
     steps:
-        - name: Psr12 style
-          uses: shivammathur/setup-php@v2
+        - name:               Psr12 style
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.4'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.4'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: lint_style
-              run: |
+            - name:           Start sJob
+              run:            failJob=false
+            - name:           lint_style
+              run:            |
                 composer global require "squizlabs/php_codesniffer=3.*"
                 $HOME/.config/composer/vendor/bin/phpcs -p -n --extensions=php,inc --report-width=120 --standard=ci/phpcs.xml --report=full .
-            - name: job_summary_prep
-              run: |
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -43,20 +43,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Theme style
-          uses: shivammathur/setup-php@v2
+        - name:               Theme style
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.4'
+            php-version:      '7.4'
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: lint_theme_style
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           lint_theme_style
+              run:            |
                 npm install
                 npx stylelint "**/*.css"
                 npx stylelint "**/*.scss"
-            - name: job_summary_prep
-              run: |
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -70,15 +70,15 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Syntax - PHP 7.2
-          uses: shivammathur/setup-php@v2
+        - name:               Syntax - PHP 7.2
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.2'
+            php-version:      '7.2'
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: lint_syntax
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           lint_syntax
+              run:            |
                 failTest=false
                 echo "------------------------------"
                 echo "Checking for PHP syntax errors"
@@ -100,8 +100,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------------------"
-            - name: job_summary_prep
-              run: |
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -115,15 +115,15 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Syntax - PHP 7.3
-          uses: shivammathur/setup-php@v2
+        - name:               Syntax - PHP 7.3
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
+            php-version:      '7.3'
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: lint_syntax
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           lint_syntax
+              run:            |
                 failTest=false
                 echo "------------------------------"
                 echo "Checking for PHP syntax errors"
@@ -145,8 +145,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------------------"
-            - name: job_summary_prep
-              run: |
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -160,13 +160,15 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: 'Syntax - PHP 7.4'
-          php: '7.4'
+        - name:               'Syntax - PHP 7.4'
+          uses:               shivammathur/setup-php@v2
+          with:
+            php-version:      '7.4'
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: lint_syntax
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           lint_syntax
+              run:            |
                 failTest=false
                 echo "------------------------------"
                 echo "Checking for PHP syntax errors"
@@ -188,8 +190,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------------------"
-            - name: job_summary_prep
-              run: |
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -203,16 +205,16 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Syntax - PHP 8.0
-          continue-on-error: true
-          uses: shivammathur/setup-php@v2
+        - name:               Syntax - PHP 8.0
+          continue-on-error:  true
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '8.0'
+            php-version:      '8.0'
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: lint_syntax
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           lint_syntax
+              run:            |
                 failTest=false
                 echo "------------------------------"
                 echo "Checking for PHP syntax errors"
@@ -234,8 +236,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------------------"
-            - name: job_summary_prep
-              run: |
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -249,21 +251,21 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MariaDB 10.5
-          continue-on-error: true
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MariaDB 10.5
+          continue-on-error:  true
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_105
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -282,8 +284,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -308,8 +310,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -328,8 +330,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -355,22 +357,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -384,20 +386,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MariaDB 10.4
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MariaDB 10.4
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_104
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -416,8 +418,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -442,8 +444,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -462,8 +464,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -489,22 +491,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -518,20 +520,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MariaDB 10.3
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MariaDB 10.3
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_103
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -550,8 +552,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -576,8 +578,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -596,8 +598,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -623,22 +625,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -652,20 +654,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MariaDB 10.2
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MariaDB 10.2
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_102
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -684,8 +686,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -710,8 +712,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -730,8 +732,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -757,22 +759,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -786,20 +788,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MariaDB 10.1
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MariaDB 10.1
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_101
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -818,8 +820,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -844,8 +846,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -864,8 +866,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -891,22 +893,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -920,20 +922,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MySQL 8
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MySQL 8
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_8
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -952,8 +954,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -978,8 +980,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -998,8 +1000,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1025,22 +1027,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -1054,20 +1056,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MySQL 5.7
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MySQL 5.7
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_57
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -1086,8 +1088,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -1112,8 +1114,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -1132,8 +1134,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1159,22 +1161,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -1188,20 +1190,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Apache - MySQL 5.6
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Apache - MySQL 5.6
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=apache_73_56
             - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
             - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -1220,8 +1222,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -1246,8 +1248,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -1266,8 +1268,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1293,22 +1295,22 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_api
-              run: build_test_api.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_api
+              run:            build_test_api.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -1322,20 +1324,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.2 - Nginx - MariaDB 10.4
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.2 - Nginx - MariaDB 10.4
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.2'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.2'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=nginx_72
             - OPENEMR_DIR=/usr/share/nginx/html/openemr
             - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -1354,8 +1356,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -1380,8 +1382,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -1400,8 +1402,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1427,20 +1429,20 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -1454,20 +1456,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.3 - Nginx - MariaDB 10.4
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.3 - Nginx - MariaDB 10.4
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.3'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.3'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=nginx_73
             - OPENEMR_DIR=/usr/share/nginx/html/openemr
             - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -1486,8 +1488,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -1512,8 +1514,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -1532,8 +1534,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1559,20 +1561,20 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -1586,20 +1588,20 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 7.4 - Nginx - MariaDB 10.4
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 7.4 - Nginx - MariaDB 10.4
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '7.4'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '7.4'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=nginx_74
             - OPENEMR_DIR=/usr/share/nginx/html/openemr
             - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -1618,8 +1620,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -1644,8 +1646,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -1664,8 +1666,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1691,20 +1693,20 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else
@@ -1718,21 +1720,21 @@ jobs:
                 jobSummary+="--------------------------------------------"
                 echo -e "${jobSummary}"
                 if $failJob; then exit 1; fi
-        - name: Build and test - PHP 8.0 - Nginx - MariaDB 10.4
-          continue-on-error: true
-          uses: shivammathur/setup-php@v2
+        - name:               Build and test - PHP 8.0 - Nginx - MariaDB 10.4
+          continue-on-error:  true
+          uses:               shivammathur/setup-php@v2
           with:
-            php-version: '8.0'
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
+            php-version:      '8.0'
+            repo-token:       ${{ secrets.GITHUB_TOKEN }}
           env:
             - DOCKER_DIR=nginx_80
             - OPENEMR_DIR=/usr/share/nginx/html/openemr
             - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
           steps:
-            - name: Start Job
-              run: failJob=false
-            - name: dockers_env_start
-              run: |
+            - name:           Start Job
+              run:            failJob=false
+            - name:           dockers_env_start
+              run:            |
                 failTest=false
                 echo "---------------------------------------------------------------------"
                 echo "Start up the appropriate testing docker system to allow testing below"
@@ -1751,8 +1753,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "------------------------------------------------------------------------------"
-            - name: main_build
-              run: |
+            - name:           main_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "Main OpenEMR Build"
@@ -1777,8 +1779,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: ccda_build
-              run: |
+            - name:           ccda_build
+              run:            |
                 failTest=false
                 echo "------------------"
                 echo "CCDA OpenEMR Build"
@@ -1797,8 +1799,8 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "---------------------------"
-            - name: install_configure
-              run: |
+            - name:           install_configure
+              run:            |
                 failTest=false
                 echo "----------------------------------------------------------------------------------------------"
                 echo "Install and Configure OpenEMR for testing (remove registration modal on login and turn on api)"
@@ -1824,20 +1826,20 @@ jobs:
                 jobTests+="${jobTest}\n"
                 echo "${jobTest}"
                 echo "-------------------------------------------------------------------------------------------------------"
-            - name: build_test_unit
-              run: build_test_unit.sh
-            - name: build_test_e2e
-              run: build_test_e2e.sh
-            - name: build_test_fixtures
-              run: build_test_fixtures.sh
-            - name: build_test_services
-              run: build_test_services.sh
-            - name: build_test_validators
-              run: build_test_validators.sh
-            - name: build_test_controllers
-              run: build_test_controllers.sh
-            - name: job_summary_prep
-              run: |
+            - name:           build_test_unit
+              run:            build_test_unit.sh
+            - name:           build_test_e2e
+              run:            build_test_e2e.sh
+            - name:           build_test_fixtures
+              run:            build_test_fixtures.sh
+            - name:           build_test_services
+              run:            build_test_services.sh
+            - name:           build_test_validators
+              run:            build_test_validators.sh
+            - name:           build_test_controllers
+              run:            build_test_controllers.sh
+            - name:           job_summary_prep
+              run:            |
                 if $failJob; then
                 mes="FAILED"
                 else

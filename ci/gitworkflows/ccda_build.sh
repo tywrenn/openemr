@@ -4,7 +4,7 @@ echo "CCDA OpenEMR Build"
 echo "------------------"
 sudo chmod -R 777 ccdaservice || failTest=true
 cd ccdaservice || failTest=true
-npm install || failTest=true
+sudo npm install || failTest=true
 cd ../ || failTest=true
 if $failTest; then
 export failJob=true

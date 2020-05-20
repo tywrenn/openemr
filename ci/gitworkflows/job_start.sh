@@ -1,2 +1,2 @@
-failJob=false
-jobTests=""
+export failJob=false
+export jobTests=""

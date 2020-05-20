@@ -3,7 +3,7 @@ echo "------------------"
 echo "Main OpenEMR Build"
 echo "------------------"
 cd $GITHUB_WORKSPACE || failTest=true
-sudo chmod +x /home/runner/work/openemr/openemr || failTest=true
+sudo chmod 777 /home/runner/work/openemr/openemr || failTest=true
 composer install || failTest=true
 npm install || failTest=true
 npm run build || failTest=true

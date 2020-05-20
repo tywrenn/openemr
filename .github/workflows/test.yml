@@ -33,10 +33,10 @@ jobs:
               php-version:          '7.4'
               extensions:           ldap
               ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
-        - name:                     Set Node version to 13
+        - name:                     Set Node version to 12
           uses:                     actions/setup-node@v1
           with:
-              version:              13
+              version:              12
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_theme_style
@@ -58,10 +58,10 @@ jobs:
               php-version:          ${{ matrix.php-versions }}
               extensions:           ldap
               ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
-        - name:                     Set Node version to 13
+        - name:                     Set Node version to 12
           uses:                     actions/setup-node@v1
           with:
-              version:              13
+              version:              12
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_syntax
@@ -81,10 +81,10 @@ jobs:
               php-version:          '8.0'
               extensions:           ldap
               ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
-        - name:                     Set Node version to 13
+        - name:                     Set Node version to 12
           uses:                     actions/setup-node@v1
           with:
-              version:              13
+              version:              12
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_syntax
@@ -106,10 +106,10 @@ jobs:
               ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
           env:
               COMPOSER_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
-        - name:                     Set Node version to 13
+        - name:                     Set Node version to 12
           uses:                     actions/setup-node@v1
           with:
-              version:              13
+              version:              12
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     dockers_env_start
@@ -157,10 +157,10 @@ jobs:
               ini-values:           error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
           env:
               COMPOSER_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
-        - name:                     Set Node version to 13
+        - name:                     Set Node version to 12
           uses:                     actions/setup-node@v1
           with:
-              version:              13
+              version:              12
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     dockers_env_start

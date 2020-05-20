@@ -47,7 +47,8 @@ jobs:
           with:
               php-version:       '7.4'
         - name:                  lint_syntax
-          run:                   if find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; then exit 1; fi && if find . -type f -name "*.inc" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; then exit 1; fi
+          run:                   if find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; then exit 1; fi
+          run:                   if find . -type f -name "*.inc" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; then exit 1; fi
   syntax-80:
     name:                        Syntax - PHP 8.0
     continue-on-error:           true
@@ -59,12 +60,9 @@ jobs:
           uses:                  shivammathur/setup-php@v2
           with:
               php-version:       '8.0'
-        - name:                  Start Job
-          run:                   failJob=false
         - name:                  lint_syntax
-          run:                   ./lint_syntax.sh
-        - name:                  job_summary_prep
-          run:                   ./job_summary_prep.sh
+          run:                   if find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; then exit 1; fi
+          run:                   if find . -type f -name "*.inc" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"; then exit 1; fi
   buildtest-apache-mariadb:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.5
     runs-on:                     ubuntu-latest

@@ -1,3 +1,4 @@
+name: Build
 language: php
 .steps:
   - &composer_github_auth |
@@ -297,63 +298,63 @@ before_install:
 before_script:
   - echo 'error_reporting = "E_ALL & ~E_NOTICE & ~E_STRICT"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 jobs:
-  include:
-    - name: 'Psr12 style'
+  build:
+    - name: Psr12 style
       php: '7.4'
-      script:
+      steps:
         - failJob=false
         - *composer_github_auth
         - *lint_style
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Theme style'
+        - if $failJob; then exit 1; fi
+    - name: Theme style
       php: '7.4'
-      script:
+      steps:
         - failJob=false
         - *lint_theme_style
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Syntax - PHP 7.2'
+        - if $failJob; then exit 1; fi
+    - name: Syntax - PHP 7.2
       php: '7.2'
-      script:
+      steps:
         - failJob=false
         - *lint_syntax
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Syntax - PHP 7.3'
+        - if $failJob; then exit 1; fi
+    - name: Syntax - PHP 7.3
       php: '7.3'
-      script:
+      steps:
         - failJob=false
         - *lint_syntax
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
+        - if $failJob; then exit 1; fi
     - name: 'Syntax - PHP 7.4'
       php: '7.4'
-      script:
+      steps:
         - failJob=false
         - *lint_syntax
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Syntax - PHP 8.0'
+        - if $failJob; then exit 1; fi
+    - name: Syntax - PHP 8.0
       php: 'nightly'
-      script:
+      steps:
         - failJob=false
         - *lint_syntax
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MariaDB 10.5'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MariaDB 10.5
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_105
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -369,14 +370,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MariaDB 10.4'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MariaDB 10.4
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_104
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -392,14 +393,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MariaDB 10.3'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MariaDB 10.3
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_103
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -415,14 +416,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MariaDB 10.2'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MariaDB 10.2
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_102
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -438,14 +439,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MariaDB 10.1'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MariaDB 10.1
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_101
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -461,14 +462,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MySQL 8'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MySQL 8
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_8
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -484,14 +485,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MySQL 5.7'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MySQL 5.7
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_57
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -507,14 +508,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Apache - MySQL 5.6'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Apache - MySQL 5.6
       php: '7.3'
       env:
         - DOCKER_DIR=apache_73_56
         - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -530,14 +531,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.2 - Nginx - MariaDB 10.4'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.2 - Nginx - MariaDB 10.4
       php: '7.2'
       env:
         - DOCKER_DIR=nginx_72
         - OPENEMR_DIR=/usr/share/nginx/html/openemr
         - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -552,14 +553,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.3 - Nginx - MariaDB 10.4'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.3 - Nginx - MariaDB 10.4
       php: '7.3'
       env:
         - DOCKER_DIR=nginx_73
         - OPENEMR_DIR=/usr/share/nginx/html/openemr
         - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -574,14 +575,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 7.4 - Nginx - MariaDB 10.4'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 7.4 - Nginx - MariaDB 10.4
       php: '7.4'
       env:
         - DOCKER_DIR=nginx_74
         - OPENEMR_DIR=/usr/share/nginx/html/openemr
         - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -596,14 +597,14 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
-    - name: 'Build and test - PHP 8.0 - Nginx - MariaDB 10.4'
+        - if $failJob; then exit 1; fi
+    - name: Build and test - PHP 8.0 - Nginx - MariaDB 10.4
       php: 'nightly'
       env:
         - DOCKER_DIR=nginx_80
         - OPENEMR_DIR=/usr/share/nginx/html/openemr
         - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
-      script:
+      steps:
         - failJob=false
         - *dockers_env_start
         - *composer_github_auth
@@ -618,7 +619,7 @@ jobs:
         - *build_test_controllers
         - *job_summary_prep
         - echo -e "${jobSummary}"
-        - if $failJob; then travis_terminate 1; fi
+        - if $failJob; then exit 1; fi
   allow_failures:
     - name: 'Build and test - PHP 7.3 - Apache - MariaDB 10.5'
     - name: 'Syntax - PHP 8.0'

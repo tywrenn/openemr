@@ -19,6 +19,9 @@ jobs:
               php-version:       '7.4'
         - name:                  Start Job
           run:                   ./ci/gitworkflows/job_start.sh
+          env:
+              failJob: false
+              jobTests: ""
         - name:                  lint_style
           run:                   ./ci/gitworkflows/lint_style.sh
         - name:                  job_summary_prep
@@ -35,6 +38,9 @@ jobs:
               php-version:       '7.4'
         - name:                  Start Job
           run:                   ./ci/gitworkflows/job_start.sh
+          env:
+              failJob: false
+              jobTests: ""
         - name:                  lint_theme_style
           run:                   ./ci/gitworkflows/lint_theme_style.sh
         - name:                  job_summary_prep
@@ -54,6 +60,9 @@ jobs:
               php-version:       '7.4'
         - name:                  Start Job
           run:                   ./ci/gitworkflows/job_start.sh
+          env:
+              failJob: false
+              jobTests: ""
         - name:                  lint_syntax
           run:                   ./ci/gitworkflows/lint_syntax.sh
         - name:                  job_summary_prep

@@ -2,14 +2,10 @@ name:                               OpenEMR Build
 on:                                 [push, pull_request]
 env:
   CI:                               true
-#before_install:
-#  - echo "extension=ldap.so" >>php --ini | grep "Loaded Configuration" | sed -e "s|.:\s||"``
-#before_script:
-#  - echo 'error_reporting = "E_ALL & ~E_NOTICE & ~E_STRICT"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 jobs:
   psr12:
     name:                           Psr12 Style
-    runs-on:                        ubuntu-latest
+    runs-on:                        ubuntu-16.04
     steps:
         - name:                     Clone repository
           uses:                     actions/checkout@v2
@@ -17,6 +13,8 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '7.4'
+              extensions:           ldap
+              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_style
@@ -25,7 +23,7 @@ jobs:
           run:                      ./ci/gitworkflows/job_summary_prep.sh
   themestyle:
     name:                           Theme Style
-    runs-on:                        ubuntu-latest
+    runs-on:                        ubuntu-16.04
     steps:
         - name:                     Clone repository
           uses:                     actions/checkout@v2
@@ -33,6 +31,8 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '7.4'
+              extensions:           ldap
+              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -44,7 +44,7 @@ jobs:
         - name:                     job_summary_prep
           run:                      ./ci/gitworkflows/job_summary_prep.sh
   syntax:
-    runs-on:                        ubuntu-latest
+    runs-on:                        ubuntu-16.04
     strategy:
       matrix:
         php-versions:               ['7.2', '7.3', '7.4']
@@ -56,6 +56,8 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          ${{ matrix.php-versions }}
+              extensions:           ldap
+              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -69,7 +71,7 @@ jobs:
   syntax-80:
     name:                           Syntax - PHP 8.0
     continue-on-error:              true
-    runs-on:                        ubuntu-latest
+    runs-on:                        ubuntu-16.04
     steps:
         - name:                     Clone repository
           uses:                     actions/checkout@v2
@@ -77,6 +79,8 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '8.0'
+              extensions:           ldap
+              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -89,7 +93,7 @@ jobs:
           run:                      ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb:
     name:                           Build and test - PHP 7.3 - Apache - MariaDB 10.5
-    runs-on:                        ubuntu-latest
+    runs-on:                        ubuntu-16.04
     continue-on-error:              true
     steps:
         - name:                     Clone repository
@@ -99,6 +103,8 @@ jobs:
           with:
               php-version:          '7.3'
               repo-token:           ${{ secrets.GITHUB_TOKEN }}
+              extensions:           ldap
+              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:
@@ -134,7 +140,7 @@ jobs:
         - name:                     job_summary_prep
           run:                      ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb-matrix:
-    runs-on:                        ubuntu-latest
+    runs-on:                        ubuntu-16.04
     strategy:
       matrix:
         mariadbversion:             ['apache_73_104', 'apache_73_103', 'apache_73_102', 'apache_73_101']
@@ -147,6 +153,8 @@ jobs:
           with:
               php-version:          '7.3'
               repo-token:           ${{ secrets.GITHUB_TOKEN }}
+              extensions:           ldap
+              ini-values:           error_reporting="E_ALL & ~E_NOTICE & ~E_STRICT"
         - name:                     Set Node version to 13
           uses:                     actions/setup-node@v1
           with:

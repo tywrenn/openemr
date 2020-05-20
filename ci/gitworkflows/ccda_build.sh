@@ -3,7 +3,7 @@ echo "------------------"
 echo "CCDA OpenEMR Build"
 echo "------------------"
 cd ccdaservice || failTest=true
-mdkir node_modules || failTest=true
+mkdir node_modules || failTest=true
 sudo chmod 777 node_modules || failTest=true
 npm install || failTest=true
 cd ../ || failTest=true

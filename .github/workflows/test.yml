@@ -75,7 +75,7 @@ jobs:
         - name:                  Start Job
           run:                   failJob=false
         - name:                  dockers_env_start
-          run:                   ./dockers_env_start.sh
+          run:                   ./ci/gitworkflows/dockers_env_start.sh
           env:
               DOCKER_DIR:        apache_73_105
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
@@ -115,7 +115,7 @@ jobs:
         - name:                  Start Job
           run:                   failJob=false
         - name:                  dockers_env_start
-          run:                   dockers_env_start.sh
+          run:                   ./ci/gitworkflows/dockers_env_start.sh
           env:
               DOCKER_DIR:        apache_73_104
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
@@ -155,7 +155,7 @@ jobs:
         - name:                  Start Job
           run:                   failJob=false
         - name:                  dockers_env_start
-          run:                   dockers_env_start.sh
+          run:                   ./ci/gitworkflows/dockers_env_start.sh
           env:
               DOCKER_DIR:        apache_73_103
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
@@ -195,7 +195,7 @@ jobs:
         - name:                  Start Job
           run:                   failJob=false
         - name:                  dockers_env_start
-          run:                   dockers_env_start.sh
+          run:                   ./ci/gitworkflows/dockers_env_start.sh
           env:
               DOCKER_DIR:        apache_73_102
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr

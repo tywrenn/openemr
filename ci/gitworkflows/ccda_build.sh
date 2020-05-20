@@ -2,9 +2,9 @@ failTest=false
 echo "------------------"
 echo "CCDA OpenEMR Build"
 echo "------------------"
+sudo chmod -R 777 ccdaservice || failTest=true
 cd ccdaservice || failTest=true
-echo "Running node in sudo -- This is normal for CI as it doesn't like directory perms too much here"
-sudo npm install || failTest=true
+npm install || failTest=true
 cd ../ || failTest=true
 if $failTest; then
 export failJob=true

@@ -40,13 +40,13 @@ jobs:
     uses:                        shivammathur/setup-php@v2
     with:
         php-version:             '7.2'
-        steps:
-            - name:              Start Job
-              run:               failJob=false
-            - name:              lint_syntax
-              run:               lint_syntax.sh
-            - name:              job_summary_prep
-              run:               job_summary_prep.sh
+    steps:
+        - name:              Start Job
+          run:               failJob=false
+        - name:              lint_syntax
+          run:               lint_syntax.sh
+        - name:              job_summary_prep
+          run:               job_summary_prep.sh
   syntax-73:
     name:                        Syntax - PHP 7.3
     runs-on:                     ubuntu-latest
@@ -95,37 +95,37 @@ jobs:
     with:
         php-version:             '7.3'
         repo-token:              ${{ secrets.GITHUB_TOKEN }}
-        env:
-            - DOCKER_DIR=apache_73_105
-            - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-            - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        steps:
-            - name:              Start Job
-              run:               failJob=false
-            - name:              dockers_env_start
-              run:               dockers_env_start.sh
-            - name:              main_build
-              run:               main_build.sh
-            - name:              ccda_build
-              run:               ccda_build.sh
-            - name:              install_configure
-              run:               install_configure.sh
-            - name:              build_test_unit
-              run:               build_test_unit.sh
-            - name:              build_test_e2e
-              run:               build_test_e2e.sh
-            - name:              build_test_api
-              run:               build_test_api.sh
-            - name:              build_test_fixtures
-              run:               build_test_fixtures.sh
-            - name:              build_test_services
-              run:               build_test_services.sh
-            - name:              build_test_validators
-              run:               build_test_validators.sh
-            - name:              build_test_controllers
-              run:               build_test_controllers.sh
-            - name:              job_summary_prep
-              run:               job_summary_prep.sh
+    env:
+        - DOCKER_DIR=apache_73_105
+        - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
+        - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
+    steps:
+        - name:              Start Job
+          run:               failJob=false
+        - name:              dockers_env_start
+          run:               dockers_env_start.sh
+        - name:              main_build
+          run:               main_build.sh
+        - name:              ccda_build
+          run:               ccda_build.sh
+        - name:              install_configure
+          run:               install_configure.sh
+        - name:              build_test_unit
+          run:               build_test_unit.sh
+        - name:              build_test_e2e
+          run:               build_test_e2e.sh
+        - name:              build_test_api
+          run:               build_test_api.sh
+        - name:              build_test_fixtures
+          run:               build_test_fixtures.sh
+        - name:              build_test_services
+          run:               build_test_services.sh
+        - name:              build_test_validators
+          run:               build_test_validators.sh
+        - name:              build_test_controllers
+          run:               build_test_controllers.sh
+        - name:              job_summary_prep
+          run:               job_summary_prep.sh
   buildtest-apache-mariadb-105:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.4
     runs-on:                     ubuntu-latest
@@ -133,37 +133,37 @@ jobs:
     with:
         php-version:             '7.3'
         repo-token:              ${{ secrets.GITHUB_TOKEN }}
-        env:
-            - DOCKER_DIR=apache_73_104
-            - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-            - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        steps:
-            - name:              Start Job
-              run:               failJob=false
-            - name:              dockers_env_start
-              run:               dockers_env_start.sh
-            - name:              main_build
-              run:               main_build.sh
-            - name:              ccda_build
-              run:               ccda_build.sh
-            - name:              install_configure
-              run:               install_configure.sh
-            - name:              build_test_unit
-              run:               build_test_unit.sh
-            - name:              build_test_e2e
-              run:               build_test_e2e.sh
-            - name:              build_test_api
-              run:               build_test_api.sh
-            - name:              build_test_fixtures
-              run:               build_test_fixtures.sh
-            - name:              build_test_services
-              run:               build_test_services.sh
-            - name:              build_test_validators
-              run:               build_test_validators.sh
-            - name:              build_test_controllers
-              run:               build_test_controllers.sh
-            - name:              job_summary_prep
-              run:               job_summary_prep.sh
+    env:
+        - DOCKER_DIR=apache_73_104
+        - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
+        - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
+    steps:
+        - name:              Start Job
+          run:               failJob=false
+        - name:              dockers_env_start
+          run:               dockers_env_start.sh
+        - name:              main_build
+          run:               main_build.sh
+        - name:              ccda_build
+          run:               ccda_build.sh
+        - name:              install_configure
+          run:               install_configure.sh
+        - name:              build_test_unit
+          run:               build_test_unit.sh
+        - name:              build_test_e2e
+          run:               build_test_e2e.sh
+        - name:              build_test_api
+          run:               build_test_api.sh
+        - name:              build_test_fixtures
+          run:               build_test_fixtures.sh
+        - name:              build_test_services
+          run:               build_test_services.sh
+        - name:              build_test_validators
+          run:               build_test_validators.sh
+        - name:              build_test_controllers
+          run:               build_test_controllers.sh
+        - name:              job_summary_prep
+          run:               job_summary_prep.sh
   buildtest-apache-mariadb-103:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.3
     runs-on:                     ubuntu-latest

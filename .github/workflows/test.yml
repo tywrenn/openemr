@@ -122,6 +122,7 @@ jobs:
           run:                      ./ci/gitworkflows/main_build.sh
         - name:                     ccda_build
           run:                      ./ci/gitworkflows/ccda_build.sh
+          continue-on-error:        true
         - name:                     install_configure
           run:                      ./ci/gitworkflows/install_configure.sh
         - name:                     build_test_unit
@@ -173,6 +174,7 @@ jobs:
           run:                      ./ci/gitworkflows/main_build.sh
         - name:                     ccda_build
           run:                      ./ci/gitworkflows/ccda_build.sh
+          continue-on-error:        true
         - name:                     install_configure
           run:                      ./ci/gitworkflows/install_configure.sh
         - name:                     build_test_unit

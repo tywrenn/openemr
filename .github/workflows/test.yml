@@ -18,9 +18,9 @@ jobs:
         - name:                  Start sJob
           run:                   failJob=false
         - name:                  lint_style
-          run:                   sh phpcs.sh
+          run:                   ./phpcs.sh
         - name:                  job_summary_prep
-          run:                   sh job_summary_prep.sh
+          run:                   ./job_summary_prep.sh
   themestyle:
     name:                        Theme Style
     runs-on:                     ubuntu-latest
@@ -32,9 +32,9 @@ jobs:
         - name:                  Start Job
           run:                   failJob=false
         - name:                  lint_theme_style
-          run:                   sh lint_theme_style.sh
+          run:                   ./lint_theme_style.sh
         - name:                  job_summary_prep
-          run:                   sh job_summary_prep.sh
+          run:                   ./job_summary_prep.sh
   syntax:
     name:                        Syntax - PHP {{ matrix.php-versions }}
     runs-on:                     ubuntu-latest
@@ -49,9 +49,9 @@ jobs:
         - name:              Start Job
           run:               failJob=false
         - name:              lint_syntax
-          run:               sh lint_syntax.sh
+          run:               ./lint_syntax.sh
         - name:              job_summary_prep
-          run:               sh job_summary_prep.sh
+          run:               ./job_summary_prep.sh
   syntax-80:
     name:                        Syntax - PHP 8.0
     continue-on-error:           true
@@ -64,9 +64,9 @@ jobs:
         - name:                  Start Job
           run:                   failJob=false
         - name:                  lint_syntax
-          run:                   sh lint_syntax.sh
+          run:                   ./lint_syntax.sh
         - name:                  job_summary_prep
-          run:                   sh job_summary_prep.sh
+          run:                   ./job_summary_prep.sh
   buildtest-apache-mariadb:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.5
     runs-on:                     ubuntu-latest
@@ -79,33 +79,33 @@ jobs:
         - name:              Start Job
           run:               failJob=false
         - name:              dockers_env_start
-          run:               sh dockers_env_start.sh
+          run:               ./dockers_env_start.sh
           env:
               DOCKER_DIR: apache_73_105
               OPENEMR_DIR: /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:              main_build
-          run:               sh main_build.sh
+          run:               ./main_build.sh
         - name:              ccda_build
-          run:               sh ccda_build.sh
+          run:               ./ccda_build.sh
         - name:              install_configure
-          run:               sh install_configure.sh
+          run:               ./install_configure.sh
         - name:              build_test_unit
-          run:               sh build_test_unit.sh
+          run:               ./build_test_unit.sh
         - name:              build_test_e2e
-          run:               sh build_test_e2e.sh
+          run:               ./build_test_e2e.sh
         - name:              build_test_api
-          run:               sh build_test_api.sh
+          run:               ./build_test_api.sh
         - name:              build_test_fixtures
-          run:               sh build_test_fixtures.sh
+          run:               ./build_test_fixtures.sh
         - name:              build_test_services
-          run:               sh build_test_services.sh
+          run:               ./build_test_services.sh
         - name:              build_test_validators
-          run:               sh build_test_validators.sh
+          run:               ./build_test_validators.sh
         - name:              build_test_controllers
-          run:               sh build_test_controllers.sh
+          run:               ./build_test_controllers.sh
         - name:              job_summary_prep
-          run:               sh job_summary_prep.sh
+          run:               ./job_summary_prep.sh
   buildtest-apache-mariadb-105:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.4
     runs-on:                     ubuntu-latest
@@ -123,27 +123,27 @@ jobs:
               OPENEMR_DIR: /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:              main_build
-          run:               sh main_build.sh
+          run:               ./main_build.sh
         - name:              ccda_build
-          run:               sh ccda_build.sh
+          run:               ./ccda_build.sh
         - name:              install_configure
-          run:               sh install_configure.sh
+          run:               ./install_configure.sh
         - name:              build_test_unit
-          run:               sh build_test_unit.sh
+          run:               ./build_test_unit.sh
         - name:              build_test_e2e
-          run:               sh build_test_e2e.sh
+          run:               ./build_test_e2e.sh
         - name:              build_test_api
-          run:               sh build_test_api.sh
+          run:               ./build_test_api.sh
         - name:              build_test_fixtures
-          run:               sh build_test_fixtures.sh
+          run:               ./build_test_fixtures.sh
         - name:              build_test_services
-          run:               sh build_test_services.sh
+          run:               ./build_test_services.sh
         - name:              build_test_validators
-          run:               sh build_test_validators.sh
+          run:               ./build_test_validators.sh
         - name:              build_test_controllers
-          run:               sh build_test_controllers.sh
+          run:               ./build_test_controllers.sh
         - name:              job_summary_prep
-          run:               sh job_summary_prep.sh
+          run:               ./job_summary_prep.sh
   buildtest-apache-mariadb-103:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.3
     runs-on:                     ubuntu-latest
@@ -161,27 +161,27 @@ jobs:
               OPENEMR_DIR: /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:              main_build
-          run:               sh main_build.sh
+          run:               ./main_build.sh
         - name:              ccda_build
-          run:               sh ccda_build.sh
+          run:               ./ccda_build.sh
         - name:              install_configure
-          run:               sh install_configure.sh
+          run:               ./install_configure.sh
         - name:              build_test_unit
-          run:               sh build_test_unit.sh
+          run:               ./build_test_unit.sh
         - name:              build_test_e2e
-          run:               sh build_test_e2e.sh
+          run:               ./build_test_e2e.sh
         - name:              build_test_api
-          run:               sh build_test_api.sh
+          run:               ./build_test_api.sh
         - name:              build_test_fixtures
-          run:               sh build_test_fixtures.sh
+          run:               ./build_test_fixtures.sh
         - name:              build_test_services
-          run:               sh build_test_services.sh
+          run:               ./build_test_services.sh
         - name:              build_test_validators
-          run:               sh build_test_validators.sh
+          run:               ./build_test_validators.sh
         - name:              build_test_controllers
-          run:               sh build_test_controllers.sh
+          run:               ./build_test_controllers.sh
         - name:              job_summary_prep
-          run:               sh job_summary_prep.sh
+          run:               ./job_summary_prep.sh
   buildtest-apache-mariadb-102:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.2
     runs-on:                     ubuntu-latest
@@ -199,27 +199,27 @@ jobs:
               OPENEMR_DIR: /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:              main_build
-          run:               sh main_build.sh
+          run:               ./main_build.sh
         - name:              ccda_build
-          run:               sh ccda_build.sh
+          run:               ./ccda_build.sh
         - name:              install_configure
-          run:               sh install_configure.sh
+          run:               ./install_configure.sh
         - name:              build_test_unit
-          run:               sh build_test_unit.sh
+          run:               ./build_test_unit.sh
         - name:              build_test_e2e
-          run:               sh build_test_e2e.sh
+          run:               ./build_test_e2e.sh
         - name:              build_test_api
-          run:               sh build_test_api.sh
+          run:               ./build_test_api.sh
         - name:              build_test_fixtures
-          run:               sh build_test_fixtures.sh
+          run:               ./build_test_fixtures.sh
         - name:              build_test_services
-          run:               sh build_test_services.sh
+          run:               ./build_test_services.sh
         - name:              build_test_validators
-          run:               sh build_test_validators.sh
+          run:               ./build_test_validators.sh
         - name:              build_test_controllers
-          run:               sh build_test_controllers.sh
+          run:               ./build_test_controllers.sh
         - name:              job_summary_prep
-          run:               sh job_summary_prep.sh
+          run:               ./job_summary_prep.sh
         # - name:                Build and test - PHP 7.3 - Apache - MariaDB 10.1
         #   uses:                shivammathur/setup-php@v2
         #   with:

@@ -1,4 +1,5 @@
 failTest=false
+jobTests=""
 echo "--------------------------------------"
 echo "Checking for PHP theme styling issues"
 echo "--------------------------------------"

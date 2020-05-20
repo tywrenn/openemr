@@ -46,8 +46,12 @@ jobs:
           uses:                  shivammathur/setup-php@v2
           with:
               php-version:       '7.4'
+        - name:                  Start Job
+          run:                   failJob=false && jobTests=""
         - name:                  lint_syntax
-          run:                   ./lint_syntax.sh
+          run:                   ./ci/gitworkflows/lint_syntax.sh
+        - name:                  job_summary_prep
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   syntax-80:
     name:                        Syntax - PHP 8.0
     continue-on-error:           true
@@ -60,7 +64,9 @@ jobs:
           with:
               php-version:       '8.0'
         - name:                  lint_syntax
-          run:                   ./lint_syntax.sh
+          run:                   ./ci/gitworkflows/lint_syntax.sh
+        - name:                  job_summary_prep
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.5
     runs-on:                     ubuntu-latest
@@ -83,7 +89,7 @@ jobs:
         - name:                  main_build
           run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
-          run:                   ./ccda_build.sh
+          run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
           run:                   ./install_configure.sh
         - name:                  build_test_unit
@@ -101,7 +107,7 @@ jobs:
         - name:                  build_test_controllers
           run:                   ./build_test_controllers.sh
         - name:                  job_summary_prep
-          run:                   ./job_summary_prep.sh
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb-105:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.4
     runs-on:                     ubuntu-latest
@@ -123,7 +129,7 @@ jobs:
         - name:                  main_build
           run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
-          run:                   ./ccda_build.sh
+          run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
           run:                   ./install_configure.sh
         - name:                  build_test_unit
@@ -141,7 +147,7 @@ jobs:
         - name:                  build_test_controllers
           run:                   ./build_test_controllers.sh
         - name:                  job_summary_prep
-          run:                   ./job_summary_prep.sh
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb-103:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.3
     runs-on:                     ubuntu-latest
@@ -163,7 +169,7 @@ jobs:
         - name:                  main_build
           run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
-          run:                   ./ccda_build.sh
+          run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
           run:                   ./install_configure.sh
         - name:                  build_test_unit
@@ -181,7 +187,7 @@ jobs:
         - name:                  build_test_controllers
           run:                   ./build_test_controllers.sh
         - name:                  job_summary_prep
-          run:                   ./job_summary_prep.sh
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb-102:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.2
     runs-on:                     ubuntu-latest
@@ -203,7 +209,7 @@ jobs:
         - name:                  main_build
           run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
-          run:                   ./ccda_build.sh
+          run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
           run:                   ./install_configure.sh
         - name:                  build_test_unit
@@ -221,7 +227,7 @@ jobs:
         - name:                  build_test_controllers
           run:                   ./build_test_controllers.sh
         - name:                  job_summary_prep
-          run:                   ./job_summary_prep.sh
+          run:                   ./ci/gitworkflows/job_summary_prep.sh
         # - name:                Build and test - PHP 7.3 - Apache - MariaDB 10.1
         #   uses:                shivammathur/setup-php@v2
         #   with:

@@ -9,5 +9,5 @@ jobSummary+="${mes} - JOB SUMMARY\n"
 jobSummary+="--------------------------------------------\n"
 jobSummary+="${jobTests}"
 jobSummary+="--------------------------------------------"
+jobSummary+="Job Failed: ${failJob}"
 echo -e "${jobSummary}"
-if $failJob; then exit 1; fi

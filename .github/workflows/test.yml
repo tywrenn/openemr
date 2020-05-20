@@ -1,528 +1,408 @@
-name:                            OpenEMR Build
-on:                              [push, pull_request]
+name:                               OpenEMR Build
+on:                                 [push, pull_request]
 env:
-  CI:                            true
+  CI:                               true
 #efore_install:
 #  - echo "extension=ldap.so" >>php --ini | grep "Loaded Configuration" | sed -e "s|.:\s||"``
 #before_script:
 #  - echo 'error_reporting = "E_ALL & ~E_NOTICE & ~E_STRICT"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 jobs:
   psr12:
-    name:                        Psr12 Style
-    runs-on:                     ubuntu-latest
+    name:                           Psr12 Style
+    runs-on:                        ubuntu-latest
     steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
+        - name:                     Clone repository
+          uses:                     actions/checkout@v2
+        - name:                     Setup PHP
+          uses:                     shivammathur/setup-php@v2
           with:
-              php-version:       '7.4'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-          env:
-              failJob: false
-              jobTests: ""
-        - name:                  lint_style
-          run:                   ./ci/gitworkflows/lint_style.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
+              php-version:          '7.4'
+        - name:                     Start Job
+          run:                      ./ci/gitworkflows/job_start.sh
+        - name:                     lint_style
+          run:                      ./ci/gitworkflows/lint_style.sh
+        - name:                     job_summary_prep
+          run:                      ./ci/gitworkflows/job_summary_prep.sh
   themestyle:
-    name:                        Theme Style
-    runs-on:                     ubuntu-latest
+    name:                           Theme Style
+    runs-on:                        ubuntu-latest
     steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
+        - name:                     Clone repository
+          uses:                     actions/checkout@v2
+        - name:                     Setup PHP
+          uses:                     shivammathur/setup-php@v2
           with:
-              php-version:       '7.4'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-          env:
-              failJob: false
-              jobTests: ""
-        - name:                  lint_theme_style
-          run:                   ./ci/gitworkflows/lint_theme_style.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
+              php-version:          '7.4'
+        - name:                     Start Job
+          run:                      ./ci/gitworkflows/job_start.sh
+        - name:                     lint_theme_style
+          run:                      ./ci/gitworkflows/lint_theme_style.sh
+        - name:                     job_summary_prep
+          run:                      ./ci/gitworkflows/job_summary_prep.sh
   syntax:
-    name:                        Syntax - PHP Multiversion
-    runs-on:                     ubuntu-latest
+    runs-on:                        ubuntu-latest
     strategy:
       matrix:
-        php-versions:            ['7.2', '7.3', '7.4']
+        php-versions:               ['7.2', '7.3', '7.4']
+    name:                           Syntax - PHP ${{ matrix.php-versions }}
     steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
+        - name:                     Clone repository
+          uses:                     actions/checkout@v2
+        - name:                     Setup PHP
+          uses:                     shivammathur/setup-php@v2
           with:
-              php-version:       '7.4'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-          env:
-              failJob: false
-              jobTests: ""
-        - name:                  lint_syntax
-          run:                   ./ci/gitworkflows/lint_syntax.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
+              php-version:          ${{ matrix.php-versions }}
+        - name:                     Start Job
+          run:                      ./ci/gitworkflows/job_start.sh
+        - name:                     lint_syntax
+          run:                      ./ci/gitworkflows/lint_syntax.sh
+        - name:                     job_summary_prep
+          run:                      ./ci/gitworkflows/job_summary_prep.sh
   syntax-80:
-    name:                        Syntax - PHP 8.0
-    continue-on-error:           true
-    runs-on:                     ubuntu-latest
+    name:                           Syntax - PHP 8.0
+    continue-on-error:              true
+    runs-on:                        ubuntu-latest
     steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
+        - name:                     Clone repository
+          uses:                     actions/checkout@v2
+        - name:                     Setup PHP
+          uses:                     shivammathur/setup-php@v2
           with:
-              php-version:       '8.0'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-        - name:                  lint_syntax
-          run:                   ./ci/gitworkflows/lint_syntax.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
+              php-version:          '8.0'
+        - name:                     Start Job
+          run:                      ./ci/gitworkflows/job_start.sh
+        - name:                     lint_syntax
+          run:                      ./ci/gitworkflows/lint_syntax.sh
+        - name:                     job_summary_prep
+          run:                      ./ci/gitworkflows/job_summary_prep.sh
   buildtest-apache-mariadb:
-    name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.5
-    runs-on:                     ubuntu-latest
-    continue-on-error:           true
+    name:                           Build and test - PHP 7.3 - Apache - MariaDB 10.5
+    runs-on:                        ubuntu-latest
+    continue-on-error:              true
     steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
+        - name:                     Clone repository
+          uses:                     actions/checkout@v2
+        - name:                     Setup PHP
+          uses:                     shivammathur/setup-php@v2
           with:
-              php-version:       '7.3'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-        - name:                  dockers_env_start
-          run:                   ./ci/gitworkflows/dockers_env_start.sh
+              php-version:          '7.3'
+              repo-token:           ${{ secrets.GITHUB_TOKEN }}
+        - name:                     Start Job
+          run:                      ./ci/gitworkflows/job_start.sh
+        - name:                     dockers_env_start
+          run:                      ./ci/gitworkflows/dockers_env_start.sh
           env:
-              DOCKER_DIR:        apache_73_105
-              OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
-              CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        - name:                  main_build
-          run:                   ./ci/gitworkflows/main_build.sh
-        - name:                  ccda_build
-          run:                   ./ci/gitworkflows/ccda_build.sh
-        - name:                  install_configure
-          run:                   ./ci/gitworkflows/install_configure.sh
-        - name:                  build_test_unit
-          run:                   ./build_test_unit.sh
-        - name:                  build_test_e2e
-          run:                   ./build_test_e2e.sh
-        - name:                  build_test_api
-          run:                   ./build_test_api.sh
-        - name:                  build_test_fixtures
-          run:                   ./build_test_fixtures.sh
-        - name:                  build_test_services
-          run:                   ./build_test_services.sh
-        - name:                  build_test_validators
-          run:                   ./build_test_validators.sh
-        - name:                  build_test_controllers
-          run:                   ./build_test_controllers.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
-  buildtest-apache-mariadb-105:
-    name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.4
-    runs-on:                     ubuntu-latest
+              DOCKER_DIR:           apache_73_105
+              OPENEMR_DIR:          /var/www/localhost/htdocs/openemr
+              CHROMIUM_INSTALL:     "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
+        - name:                     main_build
+          run:                      ./ci/gitworkflows/main_build.sh
+        - name:                     ccda_build
+          run:                      ./ci/gitworkflows/ccda_build.sh
+        - name:                     install_configure
+          run:                      ./ci/gitworkflows/install_configure.sh
+        - name:                     build_test_unit
+          run:                      ./ci/gitworkflows/build_test_unit.sh
+        - name:                     build_test_e2e
+          run:                      ./ci/gitworkflows/build_test_e2e.sh
+        - name:                     build_test_api
+          run:                      ./ci/gitworkflows/build_test_api.sh
+        - name:                     build_test_fixtures
+          run:                      ./ci/gitworkflows/build_test_fixtures.sh
+        - name:                     build_test_services
+          run:                      ./ci/gitworkflows/build_test_services.sh
+        - name:                     build_test_validators
+          run:                      ./ci/gitworkflows/build_test_validators.sh
+        - name:                     build_test_controllers
+          run:                      ./ci/gitworkflows/build_test_controllers.sh
+        - name:                     job_summary_prep
+          run:                      ./ci/gitworkflows/job_summary_prep.sh
+  buildtest-apache-mariadb-matrix:
+    runs-on:                        ubuntu-latest
+    strategy:
+      matrix:
+        mariadbversion:             ['apache_73_104', 'apache_73_103', 'apache_73_102', 'apache_73_101']
+    name:                           Build and test - PHP 7.3 - ${{ matrix.mariadbversion }}
     steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
+        - name:                     Clone repository
+          uses:                     actions/checkout@v2
+        - name:                     Setup PHP
+          uses:                     shivammathur/setup-php@v2
           with:
-              php-version:       '7.3'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-        - name:                  dockers_env_start
-          run:                   ./ci/gitworkflows/dockers_env_start.sh
+              php-version:          '7.3'
+              repo-token:           ${{ secrets.GITHUB_TOKEN }}
+        - name:                     Start Job
+          run:                      ./ci/gitworkflows/job_start.sh
+        - name:                     dockers_env_start
+          run:                      ./ci/gitworkflows/dockers_env_start.sh
           env:
-              DOCKER_DIR:        apache_73_104
-              OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
-              CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        - name:                  main_build
-          run:                   ./ci/gitworkflows/main_build.sh
-        - name:                  ccda_build
-          run:                   ./ci/gitworkflows/ccda_build.sh
-        - name:                  install_configure
-          run:                   ./ci/gitworkflows/install_configure.sh
-        - name:                  build_test_unit
-          run:                   ./build_test_unit.sh
-        - name:                  build_test_e2e
-          run:                   ./build_test_e2e.sh
-        - name:                  build_test_api
-          run:                   ./build_test_api.sh
-        - name:                  build_test_fixtures
-          run:                   ./build_test_fixtures.sh
-        - name:                  build_test_services
-          run:                   ./build_test_services.sh
-        - name:                  build_test_validators
-          run:                   ./build_test_validators.sh
-        - name:                  build_test_controllers
-          run:                   ./build_test_controllers.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
-  buildtest-apache-mariadb-103:
-    name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.3
-    runs-on:                     ubuntu-latest
-    steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
-          with:
-              php-version:       '7.3'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-        - name:                  dockers_env_start
-          run:                   ./ci/gitworkflows/dockers_env_start.sh
-          env:
-              DOCKER_DIR:        apache_73_103
-              OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
-              CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        - name:                  main_build
-          run:                   ./ci/gitworkflows/main_build.sh
-        - name:                  ccda_build
-          run:                   ./ci/gitworkflows/ccda_build.sh
-        - name:                  install_configure
-          run:                   ./ci/gitworkflows/install_configure.sh
-        - name:                  build_test_unit
-          run:                   ./build_test_unit.sh
-        - name:                  build_test_e2e
-          run:                   ./build_test_e2e.sh
-        - name:                  build_test_api
-          run:                   ./build_test_api.sh
-        - name:                  build_test_fixtures
-          run:                   ./build_test_fixtures.sh
-        - name:                  build_test_services
-          run:                   ./build_test_services.sh
-        - name:                  build_test_validators
-          run:                   ./build_test_validators.sh
-        - name:                  build_test_controllers
-          run:                   ./build_test_controllers.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
-  buildtest-apache-mariadb-102:
-    name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.2
-    runs-on:                     ubuntu-latest
-    steps:
-        - name:                  Clone repository
-          uses:                  actions/checkout@v2
-        - name:                  Setup PHP
-          uses:                  shivammathur/setup-php@v2
-          with:
-              php-version:       '7.3'
-        - name:                  Start Job
-          run:                   ./ci/gitworkflows/job_start.sh
-        - name:                  dockers_env_start
-          run:                   ./ci/gitworkflows/dockers_env_start.sh
-          env:
-              DOCKER_DIR:        apache_73_102
-              OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
-              CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        - name:                  main_build
-          run:                   ./ci/gitworkflows/main_build.sh
-        - name:                  ccda_build
-          run:                   ./ci/gitworkflows/ccda_build.sh
-        - name:                  install_configure
-          run:                   ./ci/gitworkflows/install_configure.sh
-        - name:                  build_test_unit
-          run:                   ./build_test_unit.sh
-        - name:                  build_test_e2e
-          run:                   ./build_test_e2e.sh
-        - name:                  build_test_api
-          run:                   ./build_test_api.sh
-        - name:                  build_test_fixtures
-          run:                   ./build_test_fixtures.sh
-        - name:                  build_test_services
-          run:                   ./build_test_services.sh
-        - name:                  build_test_validators
-          run:                   ./build_test_validators.sh
-        - name:                  build_test_controllers
-          run:                   ./build_test_controllers.sh
-        - name:                  job_summary_prep
-          run:                   ./ci/gitworkflows/job_summary_prep.sh
-        # - name:                Build and test - PHP 7.3 - Apache - MariaDB 10.1
-        #   uses:                shivammathur/setup-php@v2
+              DOCKER_DIR:           ${{ matrix.mariadbversion }}
+              OPENEMR_DIR:          /var/www/localhost/htdocs/openemr
+              CHROMIUM_INSTALL:     "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
+        - name:                     main_build
+          run:                      ./ci/gitworkflows/main_build.sh
+        - name:                     ccda_build
+          run:                      ./ci/gitworkflows/ccda_build.sh
+        - name:                     install_configure
+          run:                      ./ci/gitworkflows/install_configure.sh
+        - name:                     build_test_unit
+          run:                      ./ci/gitworkflows/build_test_unit.sh
+        - name:                     build_test_e2e
+          run:                      ./ci/gitworkflows/build_test_e2e.sh
+        - name:                     build_test_api
+          run:                      ./ci/gitworkflows/build_test_api.sh
+        - name:                     build_test_fixtures
+          run:                      ./ci/gitworkflows/build_test_fixtures.sh
+        - name:                     build_test_services
+          run:                      ./ci/gitworkflows/build_test_services.sh
+        - name:                     build_test_validators
+          run:                      ./ci/gitworkflows/build_test_validators.sh
+        - name:                     build_test_controllers
+          run:                      ./ci/gitworkflows/build_test_controllers.sh
+        - name:                     job_summary_prep
+          run:                      ./ci/gitworkflows/job_summary_prep.sh
+        # - name:                   Build and test - PHP 7.3 - Apache - MySQL 8
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '7.3'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
-        #   env:
-        #     - DOCKER_DIR=apache_73_101
-        #     - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-        #     - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
-        #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_api
-        #       run:             build_test_api.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 7.3 - Apache - MySQL 8
-        #   uses:                shivammathur/setup-php@v2
-        #   with:
-        #     php-version:       '7.3'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '7.3'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=apache_73_8
         #     - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         #     - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_api
-        #       run:             build_test_api.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 7.3 - Apache - MySQL 5.7
-        #   uses:                shivammathur/setup-php@v2
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_build.sh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_api
+        #       run:                build_test_api.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh
+        # - name:                   Build and test - PHP 7.3 - Apache - MySQL 5.7
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '7.3'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '7.3'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=apache_73_57
         #     - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         #     - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_api
-        #       run:             build_test_api.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 7.3 - Apache - MySQL 5.6
-        #   uses:                shivammathur/setup-php@v2
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_build.sh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_api
+        #       run:                build_test_api.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh
+        # - name:                   Build and test - PHP 7.3 - Apache - MySQL 5.6
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '7.3'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '7.3'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=apache_73_56
         #     - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
         #     - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_buildsh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_api
-        #       run:             build_test_api.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 7.2 - Nginx - MariaDB 10.4
-        #   uses:                shivammathur/setup-php@v2
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_buildsh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_api
+        #       run:                build_test_api.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh
+        # - name:                   Build and test - PHP 7.2 - Nginx - MariaDB 10.4
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '7.2'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '7.2'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=nginx_72
         #     - OPENEMR_DIR=/usr/share/nginx/html/openemr
         #     - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 7.3 - Nginx - MariaDB 10.4
-        #   uses:                shivammathur/setup-php@v2
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_build.sh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh
+        # - name:                   Build and test - PHP 7.3 - Nginx - MariaDB 10.4
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '7.3'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '7.3'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=nginx_73
         #     - OPENEMR_DIR=/usr/share/nginx/html/openemr
         #     - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 7.4 - Nginx - MariaDB 10.4
-        #   uses:                shivammathur/setup-php@v2
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_build.sh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh
+        # - name:                   Build and test - PHP 7.4 - Nginx - MariaDB 10.4
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '7.4'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '7.4'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=nginx_74
         #     - OPENEMR_DIR=/usr/share/nginx/html/openemr
         #     - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
-        # - name:                Build and test - PHP 8.0 - Nginx - MariaDB 10.4
-        #   continue-on-error:   true
-        #   uses:                shivammathur/setup-php@v2
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_build.sh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh
+        # - name:                   Build and test - PHP 8.0 - Nginx - MariaDB 10.4
+        #   continue-on-error:      true
+        #   uses:                   shivammathur/setup-php@v2
         #   with:
-        #     php-version:       '8.0'
-        #     repo-token:        ${{ secrets.GITHUB_TOKEN }}
+        #     php-version:          '8.0'
+        #     repo-token:           ${{ secrets.GITHUB_TOKEN }}
         #   env:
         #     - DOCKER_DIR=nginx_80
         #     - OPENEMR_DIR=/usr/share/nginx/html/openemr
         #     - CHROMIUM_INSTALL="apt-get update; apt-get install -y zip libnss3 chromium"
         #   steps:
-        #     - name:            Start Job
-        #       run:             failJob=false
-        #     - name:            dockers_env_start
-        #       run:             dockers_env_start.sh
-        #     - name:            main_build
-        #       run:             main_build.sh
-        #     - name:            ccda_build
-        #       run:             ccda_build.sh
-        #     - name:            install_configure
-        #       run:             install_configure.sh
-        #     - name:            build_test_unit
-        #       run:             build_test_unit.sh
-        #     - name:            build_test_e2e
-        #       run:             build_test_e2e.sh
-        #     - name:            build_test_fixtures
-        #       run:             build_test_fixtures.sh
-        #     - name:            build_test_services
-        #       run:             build_test_services.sh
-        #     - name:            build_test_validators
-        #       run:             build_test_validators.sh
-        #     - name:            build_test_controllers
-        #       run:             build_test_controllers.sh
-        #     - name:            job_summary_prep
-        #       run:             job_summary_prep.sh
+        #     - name:               Start Job
+        #       run:                failJob=false
+        #     - name:               dockers_env_start
+        #       run:                dockers_env_start.sh
+        #     - name:               main_build
+        #       run:                main_build.sh
+        #     - name:               ccda_build
+        #       run:                ccda_build.sh
+        #     - name:               install_configure
+        #       run:                install_configure.sh
+        #     - name:               build_test_unit
+        #       run:                build_test_unit.sh
+        #     - name:               build_test_e2e
+        #       run:                build_test_e2e.sh
+        #     - name:               build_test_fixtures
+        #       run:                build_test_fixtures.sh
+        #     - name:               build_test_services
+        #       run:                build_test_services.sh
+        #     - name:               build_test_validators
+        #       run:                build_test_validators.sh
+        #     - name:               build_test_controllers
+        #       run:                build_test_controllers.sh
+        #     - name:               job_summary_prep
+        #       run:                job_summary_prep.sh

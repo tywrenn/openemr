@@ -71,10 +71,6 @@ jobs:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.5
     runs-on:                     ubuntu-latest
     continue-on-error:           true
-    env:
-        - DOCKER_DIR=apache_73_105
-        - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-        - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
     steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
@@ -84,6 +80,10 @@ jobs:
           run:               failJob=false
         - name:              dockers_env_start
           run:               dockers_env_start.sh
+          env:
+              DOCKER_DIR: apache_73_105
+              OPENEMR_DIR: /var/www/localhost/htdocs/openemr
+              CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:              main_build
           run:               main_build.sh
         - name:              ccda_build
@@ -109,10 +109,6 @@ jobs:
   buildtest-apache-mariadb-105:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.4
     runs-on:                     ubuntu-latest
-    env:
-        - DOCKER_DIR=apache_73_104
-        - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-        - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
     steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
@@ -122,6 +118,10 @@ jobs:
           run:               failJob=false
         - name:              dockers_env_start
           run:               dockers_env_start.sh
+          env:
+              DOCKER_DIR: apache_73_104
+              OPENEMR_DIR: /var/www/localhost/htdocs/openemr
+              CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:              main_build
           run:               main_build.sh
         - name:              ccda_build
@@ -147,10 +147,6 @@ jobs:
   buildtest-apache-mariadb-103:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.3
     runs-on:                     ubuntu-latest
-    env:
-        - DOCKER_DIR=apache_73_103
-        - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-        - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
     steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
@@ -160,6 +156,10 @@ jobs:
           run:                   failJob=false
         - name:                  dockers_env_start
           run:                   dockers_env_start.sh
+          env:
+              DOCKER_DIR: apache_73_103
+              OPENEMR_DIR: /var/www/localhost/htdocs/openemr
+              CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:                  main_build
           run:                   main_build.sh
         - name:                  ccda_build
@@ -184,10 +184,6 @@ jobs:
           run:                   job_summary_prep.sh
   buildtest-apache-mariadb-102:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.2
-    env:
-        - DOCKER_DIR=apache_73_102
-        - OPENEMR_DIR=/var/www/localhost/htdocs/openemr
-        - CHROMIUM_INSTALL="apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
     steps:
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
@@ -197,6 +193,10 @@ jobs:
           run:                   failJob=false
         - name:                  dockers_env_start
           run:                   dockers_env_start.sh
+          env:
+              DOCKER_DIR: apache_73_102
+              OPENEMR_DIR: /var/www/localhost/htdocs/openemr
+              CHROMIUM_INSTALL: "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:                  main_build
           run:                   main_build.sh
         - name:                  ccda_build

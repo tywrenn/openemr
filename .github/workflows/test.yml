@@ -2,9 +2,16 @@ name: OpenEMR CI
 
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
+    name: CI Testing
+    env:
+      TRAVIS_REPO_SLUG: ${{ github.repository }} 
+      TRAVIS_BRANCH: ${{ github.head_ref }} 
+      TRAVIS_PULL_REQUEST: ${{ github.event.number }} 
     steps:
-    - run: &composer_github_auth |
+      - uses: actions/checkout@v2
+      - name: composer_github_auth
+      run: |
       githubTokenRateLimitRequest=`curl -H "Authorization: token 310659f0a8658693af9ccb9da8969584b598910a" https://api.github.com/rate_limit`
       githubTokenRateLimit=`echo $githubTokenRateLimitRequest | jq '.rate.remaining'`
       echo "Number of github api requests remaining is $githubTokenRateLimit"
@@ -14,7 +21,8 @@ jobs:
       else
         echo "Not using composer github api token"
       fi
-    - run: &lint_style |
+      - name: lint_style
+      run: |
       failTest=false
       echo "--------------------------------------"
       echo "Checking for PHP styling (PSR-12) issues"

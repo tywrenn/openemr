@@ -47,7 +47,7 @@ jobs:
           with:
               php-version:       '7.4'
         - name:                  lint_syntax
-          run:                   ./$GITHUB_WORKSPACE/lint_syntax.sh
+          run:                   ./lint_syntax.sh
   syntax-80:
     name:                        Syntax - PHP 8.0
     continue-on-error:           true
@@ -60,7 +60,7 @@ jobs:
           with:
               php-version:       '8.0'
         - name:                  lint_syntax
-          run:                   ./$GITHUB_WORKSPACE/lint_syntax.sh
+          run:                   ./lint_syntax.sh
   buildtest-apache-mariadb:
     name:                        Build and test - PHP 7.3 - Apache - MariaDB 10.5
     runs-on:                     ubuntu-latest

@@ -4,8 +4,9 @@ echo "Main OpenEMR Build"
 echo "------------------"
 mkdir vendor || failTest=true
 mkdir node_modules || failTest=true
-sudo chmod 777 vendor || failTest=true
-sudo chmod 777 node_modules || failTest=true
+sudo chmod -R 777 vendor || failTest=true
+sudo chmod -R 777 node_modules || failTest=true
+sudo chmod -R 777 public/assets || failTest=true
 composer install || failTest=true
 npm install || failTest=true
 npm run build || failTest=true

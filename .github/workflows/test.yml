@@ -33,6 +33,10 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '7.4'
+        - name:                     Set Node version to 12
+          uses:                     actions/setup-node@v1
+          with:
+              version:              12
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_theme_style
@@ -52,6 +56,10 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          ${{ matrix.php-versions }}
+        - name:                     Set Node version to 13
+          uses:                     actions/setup-node@v1
+          with:
+              version:              13
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_syntax
@@ -69,6 +77,10 @@ jobs:
           uses:                     shivammathur/setup-php@v2
           with:
               php-version:          '8.0'
+        - name:                     Set Node version to 13
+          uses:                     actions/setup-node@v1
+          with:
+              version:              13
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     lint_syntax
@@ -87,6 +99,10 @@ jobs:
           with:
               php-version:          '7.3'
               repo-token:           ${{ secrets.GITHUB_TOKEN }}
+        - name:                     Set Node version to 13
+          uses:                     actions/setup-node@v1
+          with:
+              version:              13
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     dockers_env_start
@@ -131,6 +147,10 @@ jobs:
           with:
               php-version:          '7.3'
               repo-token:           ${{ secrets.GITHUB_TOKEN }}
+        - name:                     Set Node version to 13
+          uses:                     actions/setup-node@v1
+          with:
+              version:              13
         - name:                     Start Job
           run:                      ./ci/gitworkflows/job_start.sh
         - name:                     dockers_env_start

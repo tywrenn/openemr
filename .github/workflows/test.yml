@@ -81,7 +81,7 @@ jobs:
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:                  main_build
-          run:                   ./main_build.sh
+          run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
           run:                   ./ccda_build.sh
         - name:                  install_configure
@@ -121,7 +121,7 @@ jobs:
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:                  main_build
-          run:                   ./main_build.sh
+          run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
           run:                   ./ccda_build.sh
         - name:                  install_configure
@@ -161,7 +161,7 @@ jobs:
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:                  main_build
-          run:                   ./main_build.sh
+          run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
           run:                   ./ccda_build.sh
         - name:                  install_configure
@@ -201,7 +201,7 @@ jobs:
               OPENEMR_DIR:       /var/www/localhost/htdocs/openemr
               CHROMIUM_INSTALL:  "apk update; apk add --no-cache chromium chromium-chromedriver; export PANTHER_CHROME_DRIVER_BINARY=/usr/lib/chromium/chromedriver"
         - name:                  main_build
-          run:                   ./main_build.sh
+          run:                   ./ci/gitworkflows/main_build.sh
         - name:                  ccda_build
           run:                   ./ccda_build.sh
         - name:                  install_configure

@@ -99,7 +99,7 @@ jobs:
         - name:                  ccda_build
           run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
-          run:                   ./install_configure.sh
+          run:                   ./ci/gitworkflows/install_configure.sh
         - name:                  build_test_unit
           run:                   ./build_test_unit.sh
         - name:                  build_test_e2e
@@ -139,7 +139,7 @@ jobs:
         - name:                  ccda_build
           run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
-          run:                   ./install_configure.sh
+          run:                   ./ci/gitworkflows/install_configure.sh
         - name:                  build_test_unit
           run:                   ./build_test_unit.sh
         - name:                  build_test_e2e
@@ -179,7 +179,7 @@ jobs:
         - name:                  ccda_build
           run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
-          run:                   ./install_configure.sh
+          run:                   ./ci/gitworkflows/install_configure.sh
         - name:                  build_test_unit
           run:                   ./build_test_unit.sh
         - name:                  build_test_e2e
@@ -219,7 +219,7 @@ jobs:
         - name:                  ccda_build
           run:                   ./ci/gitworkflows/ccda_build.sh
         - name:                  install_configure
-          run:                   ./install_configure.sh
+          run:                   ./ci/gitworkflows/install_configure.sh
         - name:                  build_test_unit
           run:                   ./build_test_unit.sh
         - name:                  build_test_e2e

@@ -2,6 +2,7 @@ failTest=false
 echo "------------------"
 echo "Main OpenEMR Build"
 echo "------------------"
+cd $GITHUB_WORKSPACE || failTest=true
 composer install || failTest=true
 npm install || failTest=true
 npm run build || failTest=true

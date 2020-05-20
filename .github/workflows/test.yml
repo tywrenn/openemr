@@ -20,7 +20,8 @@ jobs:
         - name:                  Start sJob
           run:                   failJob=false
         - name:                  lint_style
-          run:                   failTest=false
+          run:                   |
+          failTest=false
           echo "--------------------------------------"
           echo "Checking for PHP styling (PSR-12) issues"
           echo "--------------------------------------"

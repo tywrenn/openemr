@@ -6,11 +6,18 @@ docker exec -i $(docker ps | grep _openemr | cut -f 1 -d " ") sh -c "cd ${OPENEM
 if $failTest; then
 failJob=true
 mes="FAILED"
-else
-mes="PASSED"
-fi
 echo "----------------------"
 jobTest="${mes} - Run Validator Tests"
 jobTests+="${jobTest}\n"
 echo "${jobTest}"
 echo "----------------------"
+exit 2
+else
+mes="PASSED"
+echo "----------------------"
+jobTest="${mes} - Run Validator Tests"
+jobTests+="${jobTest}\n"
+echo "${jobTest}"
+echo "----------------------"
+exit 0
+fi

@@ -15,7 +15,7 @@ composer global require phing/phing || failTest=true
 /home/runner/.composer/vendor/bin/phing assets-clean || failTest=true
 composer global remove phing/phing || failTest=true
 composer dump-autoload -o || failTest=true
-rm -fr node_modules || failTest=true
+sudo rm -fr node_modules || failTest=true
 if $failTest; then
 export failJob=true
 mes="FAILED"

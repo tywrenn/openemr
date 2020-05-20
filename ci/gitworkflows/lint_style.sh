@@ -10,11 +10,18 @@ composer global require "squizlabs/php_codesniffer=3.*" || failTest=true
 if $failTest; then
 failJob=true
 mes="FAILED"
-else
-mes="PASSED"
-fi
 echo "-----------------------------------------------"
 jobTest="${mes} - Checking for PHP styling (PSR-12) issues"
 jobTests+="${jobTest}\n"
 echo "${jobTest}"
 echo "-----------------------------------------------"
+exit 2
+else
+mes="PASSED"
+echo "-----------------------------------------------"
+jobTest="${mes} - Checking for PHP styling (PSR-12) issues"
+jobTests+="${jobTest}\n"
+echo "${jobTest}"
+echo "-----------------------------------------------"
+exit 0
+fi

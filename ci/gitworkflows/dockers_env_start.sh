@@ -8,11 +8,18 @@ cd ../../ || failTest=true
 if $failTest; then
 failJob=true
 mes="FAILED"
-else
-mes="PASSED"
-fi
 echo "------------------------------------------------------------------------------"
 jobTest="${mes} - Start up the appropriate testing docker system to allow testing below"
 jobTests+="${jobTest}\n"
 echo "${jobTest}"
 echo "------------------------------------------------------------------------------"
+exit 2
+else
+mes="PASSED"
+echo "------------------------------------------------------------------------------"
+jobTest="${mes} - Start up the appropriate testing docker system to allow testing below"
+jobTests+="${jobTest}\n"
+echo "${jobTest}"
+echo "------------------------------------------------------------------------------"
+exit 0
+fi

@@ -3,7 +3,8 @@ echo "------------------"
 echo "CCDA OpenEMR Build"
 echo "------------------"
 cd ccdaservice || failTest=true
-sudo npm install || failTest=true
+mdkir node_modules || failTest=true
+npm install || failTest=true
 cd ../ || failTest=true
 if $failTest; then
 export failJob=true
